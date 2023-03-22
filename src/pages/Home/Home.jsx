@@ -10,7 +10,7 @@ const Home = () => {
 		useState({});
 	const [currentArabicAyah, setCurrentAyah] = useState({});
 	const [loading, setLoading] = useState(false);
-
+	
 	async function querySpecificSurah(surahNumber) {
 		setLoading(true);
 		const { data } = await axios.get(
@@ -53,11 +53,11 @@ const Home = () => {
 
 	return (
 		<section className="min-h-screen">
-			<div className="container md:py-6">
-				<div className="overflow-hidden relative text-white mt-3 md:mt-0 bg-gradient-to-r from-[#199eea] to-[#e16cf3] p-3 shadow-md rounded-md md:max-w-5xl mx-auto mb-10">
+			<div className="container py-2 md:py-6">
+				<div className="overflow-hidden relative text-white   bg-gradient-to-r from-[#199eea] to-[#e16cf3] p-3 shadow-md rounded-md md:max-w-5xl mx-auto mb-10">
 					<div className="flex justify-between">
 						<div className="md:basis-2/4">
-							<h1 className="text-3xl md:text-3xl mb-6 font-bold font-andika">
+							<h1 className="text-3xl  md:text-4xl mb-6 font-bold font-andika">
 								Quran Completion
 							</h1>
 							<div className="block md:flex md:flex-row space-y-3 md:space-y-0 md:space-x-4">
