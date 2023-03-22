@@ -6,8 +6,7 @@ import quran from "../../assets/quran_2.png";
 const Home = () => {
 	const [surahList, setSuraList] = useState([]);
 	const [currentSurahArabic, setCurrentSurah] = useState({});
-	const [currentSurahEnglishTranlation, setcurrentSurahEnglishTranlation] =
-		useState({});
+	const [currentSurahEnglishTranlation, setcurrentSurahEnglishTranlation] = useState({});
 	const [currentArabicAyah, setCurrentAyah] = useState({});
 	const [loading, setLoading] = useState(false);
 	
@@ -54,7 +53,7 @@ const Home = () => {
 	return (
 		<section className="min-h-screen">
 			<div className="container py-2 md:py-6">
-				<div className="overflow-hidden relative text-white   bg-gradient-to-r from-[#199eea] to-[#e16cf3] p-3 shadow-md rounded-md md:max-w-5xl mx-auto mb-10">
+				<div className="overflow-hidden relative text-white  bg-gradient-to-r from-[#199eea] to-[#e16cf3] p-3 shadow-md rounded-lg md:max-w-5xl mx-auto mb-10">
 					<div className="flex justify-between">
 						<div className="md:basis-2/4">
 							<h1 className="text-3xl  md:text-4xl mb-6 font-bold font-andika">
@@ -81,7 +80,7 @@ const Home = () => {
 					</div>
 					<div className="w-96 h-96 bg-gradient-to-t from-[#ffffff4b] to-[#ffffff13] rounded-full absolute right-2 -bottom-72"></div>
 				</div>
-				<div className="p-3 md:p-4 md:shadow rounded-md md:max-w-5xl mx-auto dark:bg-gray-800">
+				<div className="p-3 md:p-4 md:shadow-md rounded-lg md:max-w-5xl mx-auto dark:bg-gray-800">
 					<div className="flex mb-6 justify-between">
 						<div>
 							<select
@@ -92,7 +91,7 @@ const Home = () => {
 								{surahList?.map((sura) => (
 									<option
 										key={sura.number}
-										className="font-semibold"
+										className="font-medium"
 										value={sura.number}
 									>
 										{sura.number}. {sura.englishName}
@@ -115,7 +114,7 @@ const Home = () => {
 								{currentSurahArabic?.ayahs?.map((ayah) => (
 									<option
 										key={ayah.number}
-										className="font-semibold"
+										className="font-medium"
 										value={ayah.numberInSurah}
 									>
 										Ayah. {ayah.numberInSurah}
