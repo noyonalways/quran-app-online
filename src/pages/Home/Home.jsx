@@ -2,20 +2,24 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import PulseLoader from "../../components/PulseLoader";
 import quran from "../../assets/quran_2.png";
+import { FaBookOpen } from "react-icons/fa";
+import { BsPlayCircle } from "react-icons/bs";
 
 const Home = () => {
 	const [surahList, setSuraList] = useState([]);
 	const [currentSurahArabic, setCurrentSurah] = useState({});
-	const [currentSurahEnglishTranlation, setcurrentSurahEnglishTranlation] = useState({});
+	const [currentSurahEnglishTranlation, setcurrentSurahEnglishTranlation] =
+		useState({});
 	const [currentArabicAyah, setCurrentAyah] = useState({});
 	const [loading, setLoading] = useState(false);
-	
+	const [pageNumber, setPageNumber] = useState(0);
+
 	async function querySpecificSurah(surahNumber) {
 		setLoading(true);
 		const { data } = await axios.get(
 			`https://api.alquran.cloud/v1/surah/${surahNumber}/editions/quran-uthmani,en.asad`
 		);
-		setCurrentSurah(data.data[0]); 
+		setCurrentSurah(data.data[0]);
 		setcurrentSurahEnglishTranlation(data.data[1]);
 
 		setLoading(false);
@@ -36,8 +40,7 @@ const Home = () => {
 		})();
 
 		querySpecificSurah(1);
-        querySpecificAyah(1, 1)
-        
+		querySpecificAyah(1, 1);
 	}, []);
 
 	const handleSpecificSurah = (e) => {
@@ -48,11 +51,11 @@ const Home = () => {
 		querySpecificAyah(currentSurahArabic.number, e.target.value);
 	};
 
-    console.log(currentArabicAyah);
+	// console.log(currentArabicAyah);
 
 	return (
 		<section className="min-h-screen">
-			<div className="container py-2 md:py-6">
+			<div className="container py-2 md:py-5">
 				<div className="overflow-hidden relative text-white  bg-gradient-to-r from-[#199eea] to-[#e16cf3] p-3 shadow-md rounded-lg md:max-w-5xl mx-auto mb-10">
 					<div className="flex justify-between">
 						<div className="md:basis-2/4">
@@ -69,7 +72,7 @@ const Home = () => {
 										<div className="w-1/6 h-full text-center text-xs text-white bg-white rounded-full"></div>
 									</div>
 								</div>
-								<button className="bg-white px-5  py-2 md:py-3 rounded-md text-[#e16cf3] font-semibold">
+								<button className="bg-white px-5 py-2 md:py-3 rounded-md text-[#e16cf3] font-semibold">
 									See History{" "}
 								</button>
 							</div>
@@ -80,8 +83,8 @@ const Home = () => {
 					</div>
 					<div className="w-96 h-96 bg-gradient-to-t from-[#ffffff4b] to-[#ffffff13] rounded-full absolute right-2 -bottom-72"></div>
 				</div>
-				<div className="p-3 md:p-4 md:shadow-md rounded-lg md:max-w-5xl mx-auto dark:bg-gray-800">
-					<div className="flex mb-6 justify-between">
+				<div className=" md:shadow-md rounded-lg md:max-w-5xl mx-auto dark:bg-gray-800">
+					<div className="p-4 md:p-7 flex mb-6 justify-between">
 						<div>
 							<select
 								defaultValue="1"
@@ -108,8 +111,8 @@ const Home = () => {
 						<div>
 							<select
 								onChange={handleSpecificAyah}
-								className=" bg-white dark:bg-slate-600 border dark:border-slate-500 px-2 py-2 rounded w-full dark:text-gray-200"
-                                defaultValue='1'
+								className="bg-white dark:bg-slate-600 border dark:border-slate-500 px-2 py-2 rounded w-full dark:text-gray-200"
+								defaultValue="1"
 							>
 								{currentSurahArabic?.ayahs?.map((ayah) => (
 									<option
@@ -133,14 +136,18 @@ const Home = () => {
 						<PulseLoader />
 					) : (
 						<div>
-							<div className="flex-1 mb-3 dark:text-gray-200" dir="rtl" lang="ar">
+							<div
+								className="flex-1 mb-3 dark:text-gray-200 p-4 md:p-7"
+								dir="rtl"
+								lang="ar"
+							>
 								<h2 dir="ltr" lang="eng" className="text-lg font-bold mb-3">
 									Arabic: {currentSurahArabic?.edition?.englishName}
 								</h2>
 								{currentSurahArabic?.ayahs?.map((ayah, index) => (
 									<p
 										key={ayah.number}
-										className="text-5xl font-medium inline-block mb-2 font-lateef"
+										className="text-5xl font-medium inline-block mb-2 font-lateef leading-tight"
 									>
 										<span className="mx-1 font-semibold text-sm w-6 h-6 inline-flex justify-center items-center rounded-full border border-gray-500 ">
 											{ayah.numberInSurah}
@@ -149,25 +156,62 @@ const Home = () => {
 									</p>
 								))}
 							</div>
-							<div className="flex-1 dark:text-gray-200" dir="ltr" lang="eng">
+							<div
+								className="flex-1 dark:text-gray-200 p-4 md:p-7"
+								dir="ltr"
+								lang="eng"
+							>
 								<h2 className="text-lg font-bold mb-3">
-									English Translation by :{" "}
+									English Translation by :
 									{currentSurahEnglishTranlation?.edition?.englishName}
 								</h2>
-								{currentSurahEnglishTranlation?.ayahs?.map((ayah, index) => (
-									<p
-										key={ayah.number}
-										className="text-xl font-medium inline-block mb-2"
-									>
-										<span className="mx-2 font-semibold text-xs w-6 h-6 inline-flex justify-center items-center rounded-full border border-gray-500 ">
-											{ayah.numberInSurah}
-										</span>
-										<span>{ayah.text}</span>
-									</p>
-								))}
+								{currentSurahEnglishTranlation?.ayahs
+									?.map((ayah, index) => (
+										<p
+											key={ayah.number}
+											className="text-xl font-medium inline-block mb-2 leading-7"
+										>
+											<span className="mx-2 font-semibold text-xs w-6 h-6 inline-flex justify-center items-center rounded-full border border-gray-500 ">
+												{ayah.numberInSurah}
+											</span>
+											<span>{ayah.text}</span>
+										</p>
+									))}
+								
 							</div>
 						</div>
 					)}
+					<div className="border-t mt-6">
+						<div className="p-4 md:p-7 flex flex-col-reverse md:flex-col ">
+							<div className="flex items-center justify-between">
+								<button className="flex  items-center space-x-3 bg-gradient-to-r from-[#2ec5ee] to-[#25d3cf] px-5 py-3 md:py-3 rounded-md text-white font-semibold">
+									<FaBookOpen size={20} />
+									<span>Continue Reading</span>
+								</button>
+								<div className="hidden md:block">
+									<select
+										name=""
+										id=""
+										className="bg-white dark:bg-slate-600 border dark:border-slate-500 px-2 py-2 rounded w-full dark:text-gray-200"
+									>
+										<option value="">Mishari Rishid</option>
+									</select>
+								</div>
+								<button className="text-[#25d3cf]">
+									<BsPlayCircle size={45} />
+								</button>
+							</div>
+							<div className="md:hidden mb-3">
+								<select
+									name=""
+									id=""
+									className="bg-white dark:bg-slate-600 border dark:border-slate-500 px-2 py-2 rounded w-full dark:text-gray-200"
+								>
+									<option className="font-medium" value="">Mishari Rishid</option>
+								</select>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
