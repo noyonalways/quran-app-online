@@ -1,23 +1,21 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "../Layouts/Main";
 import Home from "../pages/Home/Home";
 import Login from "../pages/Login/Login";
+import QuranAudio from "../pages/Audio/Audio";
 
 const router = createBrowserRouter([
-	{
-		path: "/",
-		element: <Main />,
-		children: [
-			{
-				path: "/",
-				element: <Home />,
-			},
-			{
-				path: "login",
-				element: <Login />,
-			},
-		],
-	},
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/audio",
+    element: <QuranAudio />,
+  },
 ]);
 
 export default router;
