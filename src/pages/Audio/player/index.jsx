@@ -1,7 +1,4 @@
-import React from "react";
-
 const Player = ({ surah }) => {
-  console.log(surah);
   return (
     <div className="">
       <div className="flex flex-col lg:flex-row items-center lg:gap-x-6 mb-3 gap-y-4 lg:gap-y-0">
